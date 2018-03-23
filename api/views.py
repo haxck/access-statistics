@@ -20,3 +20,10 @@ def p(request, link):
         db_link.count += 1
         db_link.save()
         return HttpResponse(link + str(db_link.count))
+
+def g(request):
+    try:
+        db_link = Links.objects.all()
+    except db_link.DoesNotExist:
+        return HttpResponse("Woh!")
+    return render(request, "g.html", {'db_links':db_link})
