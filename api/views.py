@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core import serializers
 from .models import Links
@@ -15,13 +15,12 @@ def p(request, link):
     # 不存在，添加一条新数据
     except Links.DoesNotExist:
         db_link = Links.objects.create(link=link,count= 1)
-        return HttpResponse("create")
+        return redirect(link)
     # 存在，数量加一
     else:
         db_link.count += 1
         db_link.save()
-        return HttpResponse(link + str(db_link.count))
-
+        return redirect(link)
 def g(request): 
     # db_link =  Links.objects.all()
     db_link = serializers.serialize("json", Links.objects.all())
