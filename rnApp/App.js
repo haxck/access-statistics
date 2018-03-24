@@ -24,7 +24,14 @@ export default class App extends React.Component {
         console.error(error);
       });
   }
-
+  _renderItems({item}) {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.text}>Count:{item.fields.count}</Text>
+        <Text>{item.fields.link}</Text>
+      </View>
+    )
+  }
   componentDidMount(){
     return fetch('http://192.168.0.106:8000/api/g/')
       .then((response) => response.json())
@@ -54,7 +61,7 @@ export default class App extends React.Component {
     }
 
     return(
-      <View style={{flex: 1, paddingTop:20}}>
+      <View style={styles.container}>
         <FlatList
           refreshControl={
             <RefreshControl 
@@ -63,7 +70,7 @@ export default class App extends React.Component {
             />
           }
           data={this.state.dataSource}
-          renderItem={({item}) => <Text>{item.fields.count}:{item.fields.link}</Text>}
+          renderItem={this._renderItems}
           keyExtractor={(item, index) => index}
         />
       </View>
@@ -74,8 +81,20 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    paddingTop:20,
+    backgroundColor: '#FFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {
+    color: 'red',
+  },
+  item: {
+    marginTop: 5,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop:20,
+    paddingBottom:20,
+    backgroundColor: '#EEE'
+  }
 });
