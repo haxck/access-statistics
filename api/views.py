@@ -6,7 +6,7 @@ from .models import Links
 
 # Create your views here.
 def index(request):
-        return HttpResponse("this is index.html")
+        return render(request, "index.html")
     
 def p(request, link):
     # 查询链接是不存在

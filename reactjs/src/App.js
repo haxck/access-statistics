@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("wp-json/wp/v2/posts/")
+    fetch("https://www.uscreditcardguide.com/wp-json/wp/v2/posts/")
       .then(res => res.json())
       .then(
         (result) => {
@@ -41,14 +41,14 @@ class App extends Component {
       return (
         <div>
           <header className="news-list-nav">
-          <a href="#">US...</a>
+          <a href="#">uscreditcardguide.com</a>
           </header>
           <div className="news-list-view">
             <ul className="news-list">
               {items.map(item => (
                 <li key={item.id} className="news-item">
                 <span className="item-title">
-                <a href={"http://localhost:8000/api/p/" + item.link} target="_blank">{item.id}:{item.title.rendered}</a>
+                <a href={document.location.protocol + "//" + document.location.host + "/api/p/" + item.link} target="_blank">{item.id}:{item.title.rendered}</a>
                 </span>
                 <br/>
                 <span className="item-time">
