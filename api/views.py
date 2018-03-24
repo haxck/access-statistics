@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core import serializers
 from .models import Links
 
 
@@ -21,9 +22,8 @@ def p(request, link):
         db_link.save()
         return HttpResponse(link + str(db_link.count))
 
-def g(request):
-    try:
-        db_link = Links.objects.all()
-    except db_link.DoesNotExist:
-        return HttpResponse("Woh!")
-    return render(request, "g.html", {'db_links':db_link})
+def g(request): 
+    # db_link =  Links.objects.all()
+    db_link = serializers.serialize("json", Links.objects.all())
+    return HttpResponse(db_link,content_type="application/json") 
+
